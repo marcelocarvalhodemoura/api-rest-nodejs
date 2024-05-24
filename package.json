@@ -1,0 +1,37 @@
+{
+  "name": "api-rest-nodejs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx nodemon src/server.ts",
+    "build": "tsup src",
+    "knex": "node --import tsx ./node_modules/.bin/knex",
+    "lint": "npx eslint src",
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@fastify/cookie": "^9.3.1",
+    "@types/node": "^20.12.12",
+    "@types/supertest": "^6.0.2",
+    "dotenv": "^16.4.5",
+    "fastify": "^4.27.0",
+    "knex": "^3.1.0",
+    "sqlite3": "^5.1.7",
+    "tsx": "^4.10.5",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@rocketseat/eslint-config": "^2.2.2",
+    "eslint": "^9.3.0",
+    "nodemon": "^3.1.0",
+    "supertest": "^7.0.0",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5",
+    "typescritp": "^1.0.0",
+    "vitest": "^1.6.0"
+  }
+}
