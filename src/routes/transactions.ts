@@ -7,6 +7,14 @@ import { db } from "../database";
 export async function transactionsRoutes(app: FastifyInstance) {
     app.addHook('preHandler', async (request, response) => {})
 
+    /**
+     * GET / - Fetch all transactions for a specific session
+     * This endpoint retrieves all transactions associated with the session ID stored in the cookies.
+     * It uses the `checkSessionIdExists` middleware to ensure the session ID exists before processing the request.
+     *
+     * @param {FastifyRequest} request - The request object from Fastify.
+     * @returns {Object} An object containing an array of transactions.
+     */
     app.get("/", {
         preHandler: [checkSessionIdExists]
 
@@ -21,6 +29,14 @@ export async function transactionsRoutes(app: FastifyInstance) {
         }
     })
 
+    /**
+     * GET /summary - Fetch the summary of transactions for a specific session
+     * This endpoint retrieves the sum of the amount of all transactions associated with the session ID stored in the cookies.
+     * It uses the `checkSessionIdExists` middleware to ensure the session ID exists before processing the request.
+     *
+     * @param {FastifyRequest} request - The request object from Fastify.
+     * @returns {Object} An object containing the summary of transactions.
+     */
     app.get("/summary", {
         preHandler: [checkSessionIdExists]
 
@@ -35,6 +51,15 @@ export async function transactionsRoutes(app: FastifyInstance) {
         }
     })
 
+    /**
+     * GET /:id - Fetch a specific transaction for a specific session
+     * This endpoint retrieves a specific transaction associated with the session ID stored in the cookies and the transaction ID provided in the URL.
+     * It uses the `checkSessionIdExists` middleware to ensure the session ID exists before processing the request.
+     * It uses the `getTransactionParamsSchema` to validate the transaction ID in the URL.
+     *
+     * @param {FastifyRequest} request - The request object from Fastify.
+     * @returns {Object} An object containing the specific transaction.
+     */
     app.get("/:id", {
         preHandler: [checkSessionIdExists]
 
@@ -56,6 +81,15 @@ export async function transactionsRoutes(app: FastifyInstance) {
         }
     })
 
+    /**
+     * POST / - Create a new transaction for a specific session
+     * This endpoint creates a new transaction associated with the session ID stored in the cookies.
+     * If the session ID does not exist, it creates a new one and stores it in the cookies.
+     * It uses the `createTransactionBodySchema` to validate the transaction data in the request body.
+     *
+     * @param {FastifyRequest} request - The request object from Fastify.
+     * @returns {FastifyReply} A response object from Fastify with a status of 201.
+     */
     app.post("/", async (request: FastifyRequest, response: FastifyReply) => {
         const createTransactionBodySchema = z.object({
             title: z.string(),
